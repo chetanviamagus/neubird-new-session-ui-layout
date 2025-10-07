@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        :root {
+            --right-width: 480px;
+            /* collapsed by default */
+            --gap: 16px;
+        }
+
+        .right.expanded {
+            --right-width: 480px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+        }
+
+        .layout {
+            display: flex;
+            justify-content: end;
+            width: 100%;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* LEFT PANEL */
+        .left {
+            width: 100%;
+            max-width: 860px;
+            background: #f1f1f1;
+            transition: margin 0.3s ease;
+            background: black;
+            /* Leave space on right for the right panel and the gap */
+            margin-right: calc(var(--right-width) + var(--gap));
+        }
+
+        /* RIGHT PANEL */
+        .right {
+            opacity: 0.5;
+            width: var(--right-width);
+            max-width: 480px;
+            position: fixed;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            background: #ccc;
+            transition: width 0.3s ease;
+        }
+
+        /* At very large screen widths (≥1836px), center left panel perfectly */
+        @media (min-width: 1836px) {
+            .layout {
+                justify-content: center;
+            }
+
+            .left {
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="layout">
+        <div class="left">Left Content</div>
+        <div class="right">Right Content</div>
+    </div>
+
+</body>
+
+</html>
