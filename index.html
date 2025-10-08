@@ -5,25 +5,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <style>
         :root {
             --right-width: 480px;
-            /* collapsed by default */
             --gap: 16px;
-        }
-
-        .right.expanded {
-            --right-width: 480px;
         }
 
         * {
             box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 14px;
+            font-weight: 500;
         }
 
         body,
         html {
             margin: 0;
             padding: 0;
+            background: #121212;
+            color: #ffffff;
         }
 
         .layout {
@@ -38,24 +39,60 @@
         .left {
             width: 100%;
             max-width: 860px;
-            background: #f1f1f1;
-            transition: margin 0.3s ease;
-            background: black;
-            /* Leave space on right for the right panel and the gap */
-            margin-right: calc(var(--right-width) + var(--gap));
+            background: #1e1e1e;
+            color: #ffffff;
+            padding: 24px;
+            /* Leave space on right for the right panel and the gap - fixed at max width */
+            margin-right: calc(480px + var(--gap));
         }
 
         /* RIGHT PANEL */
         .right {
-            opacity: 0.5;
+            opacity: 0.8;
             width: var(--right-width);
             max-width: 480px;
             position: fixed;
             right: 0;
             top: 0;
             bottom: 0;
-            background: #ccc;
+            background: #2d2d2d;
+            color: #ffffff;
+            padding: 24px;
             transition: width 0.3s ease;
+        }
+
+        /* TOGGLE BUTTON */
+        .toggle-btn {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: #3a3a3a;
+            border: 1px solid #555;
+            border-radius: 8px;
+            padding: 8px 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            z-index: 10;
+
+        }
+
+        .toggle-btn:hover {
+            background: #4a4a4a;
+            border-color: #666;
+        }
+
+        .toggle-btn .material-icons {
+            color: white;
+            font-size: 18px;
+        }
+
+        .toggle-btn-text {
+            color: white;
+            font-size: 14px;
+            font-weight: 500;
         }
 
         /* At very large screen widths (≥1836px), center left panel perfectly */
@@ -75,8 +112,30 @@
 <body>
     <div class="layout">
         <div class="left">Left Content</div>
-        <div class="right">Right Content</div>
+        <div class="right">
+            <button class="toggle-btn" onclick="toggleRightPanel()">
+                <span class="toggle-btn-text">Runbook</span>
+                <span class="material-icons" id="toggle-icon">view_sidebar</span>
+            </button>
+            Right Content
+        </div>
     </div>
+
+    <script>
+        function toggleRightPanel() {
+            const root = document.documentElement;
+            const icon = document.getElementById('toggle-icon');
+            const currentWidth = getComputedStyle(root).getPropertyValue('--right-width').trim();
+
+            if (currentWidth === '480px') {
+                root.style.setProperty('--right-width', '256px');
+                icon.textContent = 'view_sidebar';
+            } else {
+                root.style.setProperty('--right-width', '480px');
+                icon.textContent = 'view_sidebar';
+            }
+        }
+    </script>
 
 </body>
 
